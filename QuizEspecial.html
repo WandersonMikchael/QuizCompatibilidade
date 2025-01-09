@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Um Quiz Especial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe4e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            padding: 15px;
+            margin: 10px;
+            background: #ff1493;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #ff69b4;
+        }
+        #final {
+            display: none;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        iframe {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://www.youtube.com/embed/jmgbxrd4Gw4?autoplay=1&loop=1&playlist=jmgbxrd4Gw4" allow="autoplay"></iframe>
+    
+    <div class="container" id="quiz">
+        <h2>Responda com sinceridade!</h2>
+        <p id="pergunta">Você gosta de café ou chá?</p>
+        <div id="botoes">
+            <button onclick="responder(0)">Café</button>
+            <button onclick="responder(1)">Chá</button>
+        </div>
+    </div>
+    <div class="container" id="final">
+        <p id="mensagem-final">Agora, abra o porta-luvas! 😊</p>
+		</br>
+    </div>
+
+    <script>
+        let perguntas = [
+            { pergunta: "O que você prefere fazer no tempo livre?", opcoes: ["Assistir filmes/séries", "Sair para passear"] },
+            { pergunta: "Qual viagem dos sonhos?", opcoes: ["Praia paradisíaca", "Viagem para a montanha"] },
+            { pergunta: "Como você demonstra carinho?", opcoes: ["Palavras e elogios", "Gestos e abraços"] },
+            { pergunta: "Qual dessas opções é a mais romântica para um encontro?", opcoes: ["Jantar à luz de velas", "Piquenique ao ar livre"] },
+            { pergunta: "Se tivéssemos um pet, qual escolheríamos?", opcoes: ["Gato", "Cachorro"] },
+            { pergunta: "Como lidamos com problemas?", opcoes: ["Conversamos e resolvemos juntos", "Damos um tempo para pensar"] },
+            { pergunta: "O que é mais importante em um relacionamento?", opcoes: ["Confiança", "Companheirismo"] },
+            { pergunta: "Qual dessas opções você prefere para um dia de folga?", opcoes: ["Maratonar uma série", "Sair para um passeio"] },
+            { pergunta: "O que você acha que nos torna um casal incrível?", opcoes: ["Nossa conexão", "Nosso senso de humor"] }
+        ];
+        let indice = 0;
+        
+        function responder(escolha) {
+            if (indice < perguntas.length) {
+                document.getElementById("pergunta").textContent = perguntas[indice].pergunta;
+                let botoesDiv = document.getElementById("botoes");
+                botoesDiv.innerHTML = "";
+                
+                if (perguntas[indice].opcoes.length > 0) {
+                    perguntas[indice].opcoes.forEach((opcao, i) => {
+                        let botao = document.createElement("button");
+                        botao.textContent = opcao;
+                        botao.onclick = () => responder(i);
+                        botoesDiv.appendChild(botao);
+                    });
+                }
+                indice++;
+            } else {
+                document.getElementById("quiz").style.display = "none";
+                document.getElementById("final").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("mensagem-final").innerHTML += '<br><span style="color: red; font-size: 24px;">Quer namorar comigo? ❤️</span>';
+                }, 6000);
+            }
+        }
+    </script>
+</body>
+</html>
